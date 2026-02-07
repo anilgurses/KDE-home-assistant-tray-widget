@@ -1,0 +1,14 @@
+# Build and package artifacts
+dist/
+*.plasmoid
+*.zip
+
+# Local packaging workspace
+.packageroot/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo

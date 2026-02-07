@@ -1,0 +1,64 @@
+name: Build Plasmoid
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate package structure
+        run: |
+          set -euo pipefail
+          test -f metadata.json
+          test -d contents
+          jq -e '.KPlugin.Id and .KPlugin.Version and .KPlugin.Name' metadata.json >/dev/null
+
+      - name: Build .plasmoid package
+        run: |
+          set -euo pipefail
+          PLUGIN_ID="$(jq -r '.KPlugin.Id' metadata.json)"
+          VERSION="$(jq -r '.KPlugin.Version' metadata.json)"
+          PACKAGE_NAME="${PLUGIN_ID}-${VERSION}.plasmoid"
+          mkdir -p dist
+          zip -r "dist/${PACKAGE_NAME}" metadata.json contents
+          echo "PACKAGE_NAME=${PACKAGE_NAME}" >> "$GITHUB_ENV"
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plasmoid-package
+          path: dist/*.plasmoid
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build release package
+        run: |
+          set -euo pipefail
+          PLUGIN_ID="$(jq -r '.KPlugin.Id' metadata.json)"
+          VERSION="$(jq -r '.KPlugin.Version' metadata.json)"
+          PACKAGE_NAME="${PLUGIN_ID}-${VERSION}.plasmoid"
+          mkdir -p dist
+          zip -r "dist/${PACKAGE_NAME}" metadata.json contents
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.plasmoid

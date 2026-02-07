@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name="" />
+  <group name="General">
+    <entry name="haBaseUrl" type="String">
+      <label>Home Assistant base URL</label>
+      <default>http://homeassistant.local:8123</default>
+    </entry>
+    <entry name="haToken" type="String">
+      <label>Long-lived access token</label>
+      <default></default>
+    </entry>
+    <entry name="entityList" type="String">
+      <label>Entities to show</label>
+      <default></default>
+    </entry>
+    <entry name="refreshSeconds" type="Int">
+      <label>Refresh interval in seconds</label>
+      <default>10</default>
+      <min>5</min>
+      <max>300</max>
+    </entry>
+    <entry name="useHassCli" type="Bool">
+      <label>Use hass-cli for reads</label>
+      <default>false</default>
+    </entry>
+    <entry name="hassCliCommand" type="String">
+      <label>hass-cli command (must output JSON list of states)</label>
+      <default>hass-cli state list --output json</default>
+    </entry>
+  </group>
+</kcfg>

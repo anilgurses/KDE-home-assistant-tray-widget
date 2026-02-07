@@ -1,0 +1,30 @@
+{
+  "KPackageStructure": "Plasma/Applet",
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "me@gursesanil.com",
+        "Name": "Anil Gurses"
+      }
+    ],
+    "Category": "Utilities",
+    "Description": "An unofficial Home Assistant controller tray widget for KDE Plasma 6.",
+    "FormFactors": [
+      "desktop",
+      "horizontal",
+      "vertical",
+      "mediacenter"
+    ],
+    "Icon": "go-home",
+    "Id": "local.homeassistant.tray.widget",
+    "License": "MIT",
+    "Name": "Home Assistant Tray Widget",
+    "Version": "0.1.0",
+    "Website": "https://github.com/anilgurses/kde-homeassistant-tray-widget"
+  },
+  "X-Plasma-API-Minimum-Version": "6.0",
+  "X-Plasma-MainScript": "ui/main.qml",
+  "X-Plasma-Provides": [
+    "org.kde.plasma.homeassistanttray"
+  ]
+}
