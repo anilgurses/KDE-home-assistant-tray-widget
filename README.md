@@ -1,4 +1,4 @@
-# Home Assistant KDE Plasma Applet Widget
+# Home Assistant KDE Plasma Tray Widget
 
 An **unofficial** KDE Plasma 6 widget to view and control Home Assistant entities from system tray.
 
